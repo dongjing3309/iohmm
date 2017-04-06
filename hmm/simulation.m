@@ -4,8 +4,8 @@ function [Z, X] = simulation(pinit, A, B, L)
 %   @param A Transitional model NxN
 %   @param B Measureemtn model NxM
 %   @param L Sequence length
-%   @return Z Output measurements
-%   @return X Output ground truth states
+%   @return Z Output measurements Lx1
+%   @return X Output ground truth states Lx1
 
 
 % check dimensions
