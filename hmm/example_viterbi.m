@@ -6,12 +6,12 @@ close all
 % system model
 N = 2;
 M = 2;
-A = [0.7 0.3;0.4 0.6];
-B = [0.8 0.2;0.2 0.8];
+A = [0.8 0.2;0.3 0.7];
+B = [0.9 0.1;0.1 0.9];
 pinit = [0.5; 0.5];
 
 % simulation data
-L = 20;
+L = 50;
 [X, Z] = simulation(pinit, A, B, L);
 
 fprintf('states / measurements:\n\n')
@@ -25,7 +25,7 @@ Pb = backward_pass(Z, A, B);
 
 % sequence likelihood
 lseq = sum(Pf(:,L));
-fprintf('\nsequence likelihood = %f\n\n', lseq)
+fprintf('\nsequence log2 likelihood = %f\n\n', log2(lseq))
     
 % state probabilities given measured sequence
 P = zeros(N,L);
