@@ -1,19 +1,19 @@
 % example of IO-HMM EM learning
-% 2-states trans-and-no-trans example
+% 3-states shift-and-no-shift example
 
 clear
 close all
 
 % system model
-A = zeros(2,2,2);
-A(:,:,1) = [0.9 0.1;0.1 0.9];   % action: non-trans
-A(:,:,2) = [0.2 0.8;0.8 0.2];   % action: trans
-B = [0.9 0.1;0.1 0.9];
-pinit = [0.5; 0.5];
+A = zeros(3,3,2);
+A(:,:,1) = [0.8 0.1 0.1;0.1 0.8 0.1;0.1 0.1 0.8];   % action: non-shift
+A(:,:,2) = [0.1 0.8 0.1;0.1 0.1 0.8;0.8 0.1 0.1];   % action: shift to next
+B = [0.9 0.05 0.05;0.05 0.9 0.05;0.05 0.05 0.9];
+pinit = [0.3; 0.3; 0.4];
 
 % control seq
-L = 100;
-p_trans = 0.2;     % prob to chose trans action
+L = 200;
+p_trans = 0.5;     % prob to chose trans action
 U = (rand(L-1, 1) < p_trans) + 1;
 
 fprintf('control:\n\n')
@@ -31,9 +31,9 @@ lseq = sum(Pf(:,L));
 fprintf('\nsequence log2 likelihood = %f\n\n', log2(lseq))
 
 % init param
-A_init = rand(2,2,2);
-B_init = rand(2,2);
-pinit_init = rand(2,1);
+A_init = rand(3,3,2);
+B_init = rand(3,3);
+pinit_init = rand(3,1);
 
 % normalize init param
 for k=1:size(A_init,3)
