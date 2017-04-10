@@ -21,8 +21,13 @@ Sigma_init = 1;
 % simulation
 [Z, X] = simulation(mu_init, Sigma_init, U, A, B, Sigma_s, C, Sigma_m);
 
+
 % forward: Kalman filtering
 [Xf, Sigma_xf] = kalman_forward(Z, U, mu_init, Sigma_init, A, B, Sigma_s, ...
+    C, Sigma_m);
+
+% forward-backward: Kalman smoothing
+[Xfb, Sigma_xfb] = kalman_forwardbackward(Z, U, mu_init, Sigma_init, A, B, Sigma_s, ...
     C, Sigma_m);
 
 
@@ -31,5 +36,7 @@ figure, grid, hold on
 gtruth = plot(1:L, X, 'b');
 meas = plot(1:L, Z, 'r.');
 fest = plot(1:L, Xf, 'm-.');
-legend([gtruth meas], 'Ground truth', 'Measurements')
+fbest = plot(1:L, Xfb, 'k-.');
+legend([gtruth meas fest fbest], 'Ground truth', 'Measurements', ....
+    'Forward', 'Forward-backward')
 hold off
