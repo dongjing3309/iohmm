@@ -29,6 +29,15 @@ A_init = rand(2,2);
 B_init = rand(2,2);
 pinit_init = rand(2,1);
 
+% normalize init param
+for i=1:size(A_init,1)
+    A_init(i,:) = A_init(i,:) / sum(A_init(i,:));
+end
+for i=1:size(B_init,1)
+    B_init(i,:) = B_init(i,:) / sum(B_init(i,:));
+end
+pinit_init = pinit_init / sum(pinit_init);
+
 nr_iter = 20;
 
 [pinit_lrn, A_lrn, B_lrn] = EM_param_learning(Z, pinit_init, A_init, B_init, nr_iter)
